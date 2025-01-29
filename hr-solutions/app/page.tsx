@@ -90,7 +90,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Personalised Portal */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-M0wZzMPLOFnnshvoK0CXK7Z3NloYoV.png"
                 alt="Personalised Portal"
@@ -103,10 +103,10 @@ export default async function Home() {
               <Button variant="link" className="text-purple-400 p-0">
                 Learn More →
               </Button>
-            </div>
+            </div> */}
 
             {/* Job Listings */}
-            <div className="space-y-4">
+            <div className="space-y-11">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-AlGWzHrG8sbpzOr72pIKHkteKI32nt.png"
                 alt="Job Listings"
@@ -122,7 +122,7 @@ export default async function Home() {
             </div>
 
             {/* Guaranteed Internships */}
-            <div className="space-y-4">
+            <div className="space-y-11">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vJk4qKxMFeQNmc9cPjlyzMMGFj2ffv.png"
                 alt="Guaranteed Internships"
@@ -138,7 +138,7 @@ export default async function Home() {
             </div>
 
             {/* Resume Builder */}
-            <div className="space-y-4">
+            <div className="space-y-8">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mL5cudcozxOqLOcwJXxrSMo0iUZe20.png"
                 alt="Resume Builder"

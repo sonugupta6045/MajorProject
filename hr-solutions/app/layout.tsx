@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans"
 import "./globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Nav } from "@/components/nav"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "HR Solutions",
@@ -16,13 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={GeistSans.className}>
-        <body className="min-h-screen bg-black">
-          <Nav />
-          {children}
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${GeistSans.className} min-h-screen bg-white dark:bg-black`}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Nav />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
   )
 }
-

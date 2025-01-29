@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { UserButton, useAuth } from "@clerk/nextjs"
+import { ModeToggle } from "./ModeToggle"
 
 export function Nav() {
   const { isSignedIn } = useAuth()
@@ -46,11 +47,14 @@ export function Nav() {
               <Link href="/register" className="text-white hover:text-purple-400">
                 Register
               </Link>
+              
             </>
+
           )}
           <Link href="/employer" className="text-white hover:text-purple-400">
             Employer
           </Link>
+          <ModeToggle />
         </div>
       </div>
     </nav>

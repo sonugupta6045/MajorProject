@@ -75,3 +75,13 @@
   }
 }
 
+
+body {
+  @apply bg-white text-black;
+}
+
+.dark body {
+  @apply bg-black text-white;
+}
+
+
