@@ -51,7 +51,7 @@ export function Nav() {
             </>
 
           )}
-          <Link href="/employer" className="text-white hover:text-purple-400">
+          <Link href="/dashboard" className="text-white hover:text-purple-400">
             Employer
           </Link>
           <ModeToggle />
