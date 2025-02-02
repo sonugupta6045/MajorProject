@@ -1,11 +1,15 @@
 "use client"
 
 import Link from "next/link"
-import { UserButton, useAuth } from "@clerk/nextjs"
+import { SignInButton, SignUpButton, UserButton, useAuth, useUser } from "@clerk/nextjs"
+import { usePathname } from "next/navigation" // Import usePathname
 import { ModeToggle } from "./ModeToggle"
 
 export function Nav() {
   const { isSignedIn } = useAuth()
+  const pathname = usePathname() // Get the current route
+
+  const isLandingPage = pathname === "/" // Check if on landing page
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-sm">
@@ -30,8 +34,25 @@ export function Nav() {
           </div>
           <span className="text-white font-semibold">HR Solutions</span>
         </Link>
+
         <div className="flex items-center gap-4 text-sm">
-          {isSignedIn ? (
+          {isLandingPage ? (
+            // If on landing page, only show Login/Register
+            <>
+            <SignInButton redirectUrl="/dashboard">
+              <a className="text-white hover:text-purple-400">
+                Login
+              </a>
+              </SignInButton>
+              <span className="text-white/50">|</span>
+              <SignUpButton redirectUrl="/dashboard">
+              <a className="text-white hover:text-purple-400">
+                Register
+              </a>
+              </SignUpButton>
+            </>
+          ) : isSignedIn ? (
+            // If signed in and NOT on landing page, show Dashboard and UserButton
             <>
               <Link href="/dashboard" className="text-white hover:text-purple-400">
                 Dashboard
@@ -39,6 +60,7 @@ export function Nav() {
               <UserButton afterSignOutUrl="/" />
             </>
           ) : (
+            // If not signed in, show Login/Register
             <>
               <Link href="/login" className="text-white hover:text-purple-400">
                 Login
@@ -47,17 +69,12 @@ export function Nav() {
               <Link href="/register" className="text-white hover:text-purple-400">
                 Register
               </Link>
-              
             </>
-
           )}
-          <Link href="/dashboard" className="text-white hover:text-purple-400">
-            Employer
-          </Link>
+          
           <ModeToggle />
         </div>
       </div>
     </nav>
   )
 }
-
