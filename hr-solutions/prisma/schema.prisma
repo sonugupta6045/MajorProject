@@ -15,3 +15,14 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Schedule {
+  id        String   @id @default(cuid())  // String ID
+  title     String
+  start     DateTime
+  end       DateTime
+  color     String   @default("#34D399")   // Default color
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
