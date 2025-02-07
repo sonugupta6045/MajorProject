@@ -1,12 +1,12 @@
 import { auth, currentUser } from "@clerk/nextjs";
-import { PrismaClient } from '@prisma/client'
-import { Button } from "@/components/ui/button"
-import { ServiceCarousel } from "@/components/service-carousel"
-import { Footer } from "@/components/footer"
-import Image from "next/image"
-import Link from "next/link"
+import { PrismaClient } from "@prisma/client";
+import { Button } from "@/components/ui/button";
+import { ServiceCarousel } from "@/components/service-carousel";
+import { Footer } from "@/components/footer";
+import Image from "next/image";
+import Link from "next/link";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export default async function Home() {
   const { userId } = auth();
@@ -62,8 +62,13 @@ export default async function Home() {
                 />
               </div>
               <h2 className="text-4xl font-bold text-white">CONNECT & GROW</h2>
-              <p className="text-gray-400">Stop depending on others! Build your own brand</p>
-              <Button variant="outline" className="text-purple-400 border-purple-400">
+              <p className="text-gray-400">
+                Stop depending on others! Build your own brand
+              </p>
+              <Button
+                variant="outline"
+                className="text-purple-400 border-purple-400"
+              >
                 Start Doing!
               </Button>
             </div>
@@ -115,7 +120,9 @@ export default async function Home() {
                 className="rounded-lg mx-auto"
               />
               <h3 className="text-2xl font-bold text-white">Job Listings</h3>
-              <p className="text-gray-400">Find your dream job with our listings service.</p>
+              <p className="text-gray-400">
+                Find your dream job with our listings service.
+              </p>
               <Button variant="link" className="text-purple-400 p-0">
                 Learn More →
               </Button>
@@ -130,8 +137,12 @@ export default async function Home() {
                 height={600}
                 className="rounded-lg mx-auto"
               />
-              <h3 className="text-2xl font-bold text-white">Guaranteed Internships</h3>
-              <p className="text-gray-400">Gain valuable experience and unlock your potential.</p>
+              <h3 className="text-2xl font-bold text-white">
+                Guaranteed Internships
+              </h3>
+              <p className="text-gray-400">
+                Gain valuable experience and unlock your potential.
+              </p>
               <Button variant="link" className="text-purple-400 p-0">
                 Learn More →
               </Button>
@@ -147,7 +158,9 @@ export default async function Home() {
                 className="rounded-lg mx-auto"
               />
               <h3 className="text-2xl font-bold text-white">Resume Builder</h3>
-              <p className="text-gray-400">Craft your perfect resume in minutes.</p>
+              <p className="text-gray-400">
+                Craft your perfect resume in minutes.
+              </p>
               <Button variant="link" className="text-purple-400 p-0">
                 Learn More →
               </Button>
@@ -166,37 +179,66 @@ export default async function Home() {
             <p className="text-xl text-gray-400">
               Build Your Winning Resume in Minutes with Our Resume Builder
             </p>
-            <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-              CREATE MY RESUME
-            </Button>
-            
+            <Link href="/create-resume">
+              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+                CREATE MY RESUME
+              </Button>
+            </Link>
+
             <div className="grid md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 text-purple-400">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" />
                   </svg>
                 </div>
-                <h3 className="text-white font-semibold mb-2">Make a resume that wins interviews</h3>
-                <p className="text-gray-400 text-sm">Use our resume maker with its advanced creation tools.</p>
+                <h3 className="text-white font-semibold mb-2">
+                  Make a resume that wins interviews
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Use our resume maker with its advanced creation tools.
+                </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 text-purple-400">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M12 4V20M4 12H20" />
                   </svg>
                 </div>
-                <h3 className="text-white font-semibold mb-2">Resume writing made easy!</h3>
-                <p className="text-gray-400 text-sm">Resume writing has never been this effortless.</p>
+                <h3 className="text-white font-semibold mb-2">
+                  Resume writing made easy!
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Resume writing has never been this effortless.
+                </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 text-purple-400">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" />
                   </svg>
                 </div>
-                <h3 className="text-white font-semibold mb-2">A resume maker tool</h3>
-                <p className="text-gray-400 text-sm">Our resume builder and its pre-generated content.</p>
+                <h3 className="text-white font-semibold mb-2">
+                  A resume maker tool
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Our resume builder and its pre-generated content.
+                </p>
               </div>
             </div>
           </div>
@@ -205,5 +247,5 @@ export default async function Home() {
 
       <Footer />
     </main>
-  )
+  );
 }
