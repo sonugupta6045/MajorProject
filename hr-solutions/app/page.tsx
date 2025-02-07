@@ -61,7 +61,7 @@ export default async function Home() {
                   className="text-purple-400"
                 />
               </div>
-              <h2 className="text-4xl font-bold text-white">CONNECT & GROW</h2>
+              <h2 className="text-4xl font-bold text-white">CONNECT and GROW</h2>
               <p className="text-gray-400">
                 Stop depending on others! Build your own brand
               </p>
