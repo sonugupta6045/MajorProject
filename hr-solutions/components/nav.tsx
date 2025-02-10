@@ -2,79 +2,148 @@
 
 import Link from "next/link"
 import { SignInButton, SignUpButton, UserButton, useAuth, useUser } from "@clerk/nextjs"
-import { usePathname } from "next/navigation" // Import usePathname
+import { usePathname } from "next/navigation"
 import { ModeToggle } from "./ModeToggle"
+import { motion } from "framer-motion"
+import { Button } from "./ui/button"
 
 export function Nav() {
   const { isSignedIn } = useAuth()
-  const pathname = usePathname() // Get the current route
+  const { user } = useUser()
+  const pathname = usePathname()
 
-  const isLandingPage = pathname === "/" // Check if on landing page
+  const isLandingPage = pathname === "/"
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/50 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-5 h-5 text-black"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          </div>
-          <span className="text-white font-semibold">HR Solutions</span>
-        </Link>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/50 backdrop-blur-md"
+    >
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+          {isSignedIn ? (
+            <div className="flex items-center gap-3 cursor-pointer">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5 text-white"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white font-bold text-lg">HR Solutions</span>
+                {!isLandingPage && (
+                  <span className="text-xs text-gray-400">Welcome, {user?.firstName}</span>
+                )}
+              </div>
+            </div>
+          ) : (
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5 text-white"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white font-bold text-lg">HR Solutions</span>
+              </div>
+            </Link>
+          )}
+        </motion.div>
 
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-4">
           {isLandingPage ? (
-            // If on landing page, only show Login/Register
             <>
-            <SignInButton redirectUrl="/dashboard">
-              <a className="text-white hover:text-purple-400">
-                Login
-              </a>
+              <SignInButton redirectUrl="/dashboard">
+                <Button variant="ghost" className="text-white hover:text-purple-400 hover:bg-white/10">
+                  Login
+                </Button>
               </SignInButton>
-              <span className="text-white/50">|</span>
               <SignUpButton redirectUrl="/dashboard">
-              <a className="text-white hover:text-purple-400">
-                Register
-              </a>
+                <Button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:opacity-90">
+                  Get Started
+                </Button>
               </SignUpButton>
             </>
           ) : isSignedIn ? (
-            // If signed in and NOT on landing page, show Dashboard and UserButton
             <>
-              <Link href="/dashboard" className="text-white hover:text-purple-400">
-                Dashboard
-              </Link>
-              <UserButton afterSignOutUrl="/" />
+              <div className="flex items-center gap-4">
+                <Link 
+                  href="/dashboard" 
+                  className={`text-sm font-medium transition-colors hover:text-purple-400 ${
+                    pathname === '/dashboard' ? 'text-purple-400' : 'text-white'
+                  }`}
+                >
+                  Dashboard
+                </Link>
+                <Link 
+                  href="/settings" 
+                  className={`text-sm font-medium transition-colors hover:text-purple-400 ${
+                    pathname === '/settings' ? 'text-purple-400' : 'text-white'
+                  }`}
+                >
+                  Settings
+                </Link>
+              </div>
+              <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+                <ModeToggle />
+                <UserButton 
+                  afterSignOutUrl="/"
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-9 h-9"
+                    }
+                  }}
+                />
+              </div>
             </>
           ) : (
-            // If not signed in, show Login/Register
             <>
-              <Link href="/login" className="text-white hover:text-purple-400">
-                Login
-              </Link>
-              <span className="text-white/50">|</span>
-              <Link href="/register" className="text-white hover:text-purple-400">
-                Register
-              </Link>
+              <div className="flex items-center gap-4">
+                <SignInButton redirectUrl="/dashboard">
+                  <Button variant="ghost" className="text-white hover:text-purple-400 hover:bg-white/10">
+                    Login
+                  </Button>
+                </SignInButton>
+                <SignUpButton redirectUrl="/dashboard">
+                  <Button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:opacity-90">
+                    Register
+                  </Button>
+                </SignUpButton>
+              </div>
+              <div className="pl-4 border-l border-white/10">
+                <ModeToggle />
+              </div>
             </>
           )}
-          
-          <ModeToggle />
         </div>
       </div>
-    </nav>
+    </motion.nav>
   )
 }

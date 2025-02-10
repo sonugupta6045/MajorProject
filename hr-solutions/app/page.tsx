@@ -44,6 +44,16 @@ export default async function Home() {
           <p className="text-gray-400 text-xl">
             Building Exceptional You for Future Success.
           </p>
+          <div className="pt-4">
+            <Link href="/sign-up">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:opacity-90"
+              >
+                Get Started
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
