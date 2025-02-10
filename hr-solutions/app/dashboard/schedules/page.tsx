@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { PlusCircle } from "lucide-react";
 import "./calendar-styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { redirect } from "next/navigation";
 
 type CalendarEvent = {
   title: string;
@@ -63,14 +64,14 @@ export default function SchedulesPage() {
     setNewEvent((prev) => ({ ...prev, start: slotInfo.start, end: slotInfo.end }));
     setIsDialogOpen(true);
   };
-
   const handleAddEvent = () => {
     if (newEvent.title) {
       const eventToAdd = {
         ...newEvent,
-        start: new Date(newEvent.start),
-        end: new Date(newEvent.end),
+        start: new Date(newEvent.start), // Ensure it's a Date object
+        end: new Date(newEvent.end), // Ensure it's a Date object
       };
+  
       fetch("/api/schedules", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -78,13 +79,26 @@ export default function SchedulesPage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setEvents((prev) => [...prev, data]);
+          setEvents((prev) => [
+            ...prev,
+            {
+              ...data,
+              start: new Date(data.start), // Ensure it's a Date object
+              end: new Date(data.end), // Ensure it's a Date object
+            },
+          ]);
           setIsDialogOpen(false);
-          setNewEvent({ title: "", start: new Date(), end: new Date(), color: "#34D399" });
+          setNewEvent({
+            title: "",
+            start: new Date(),
+            end: new Date(),
+            color: "#34D399",
+          });
         })
         .catch((err) => console.error("Error adding event:", err));
     }
   };
+  
 
   const eventStyleGetter = (event: CalendarEvent) => ({
     style: {
@@ -138,6 +152,10 @@ export default function SchedulesPage() {
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="event-start" className="text-right">Start</Label>
               <Input id="event-start" type="datetime-local" value={format(newEvent.start, "yyyy-MM-dd'T'HH:mm")} onChange={(e) => handleDateChange("start", e.target.value)} className="col-span-3" />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="event-end" className="text-right">End</Label>
+              <Input id="event-end" type="datetime-local" value={format(newEvent.end, "yyyy-MM-dd'T'HH:mm")} onChange={(e) => handleDateChange("end", e.target.value)} className="col-span-3" />
             </div>
           </div>
           <div className="flex justify-end">
