@@ -1,68 +1,137 @@
 import { forwardRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface ResumeData {
   name: string
   email: string
   phone: string
+  address: string
+  linkedin: string
+  github: string
   summary: string
-  experiences: { title: string; company: string; duration: string; description: string }[]
-  education: { degree: string; institution: string; year: string }[]
-  skills: string[]
+  experiences: {
+    title: string
+    company: string
+    location: string
+    startDate: string
+    endDate: string
+    description: string
+  }[]
+  education: {
+    degree: string
+    institution: string
+    location: string
+    graduationDate: string
+    gpa?: string
+    coursework?: string
+  }[]
+  skills: { category: string; items: string[] }[]
+  projects: { name: string; link: string; description: string; techUsed: string }[]
+  certifications: string[]
+  additionalLinks: { name: string; url: string }[]
 }
 
 const ResumePreview = forwardRef<HTMLDivElement, { data: ResumeData }>(({ data }, ref) => {
   return (
-    <Card className="w-full max-w-3xl mx-auto" ref={ref}>
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">{data.name}</CardTitle>
-        <div className="text-sm text-muted-foreground">
-          {data.email} | {data.phone}
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <section>
-          <h3 className="font-semibold mb-2">Professional Summary</h3>
-          <p className="text-sm">{data.summary}</p>
-        </section>
+    <div
+      ref={ref}
+      className="w-full max-w-4xl mx-auto bg-white p-6 shadow-lg"
+      style={{ fontFamily: "Arial, sans-serif", fontSize: "10px" }}
+    >
+      <header className="text-center mb-4">
+        <h1 className="text-2xl font-bold uppercase">{data.name}</h1>
+        <p>
+          {data.address} | {data.email} | {data.phone}
+        </p>
+        <p>
+          {data.linkedin} | {data.github}
+        </p>
+      </header>
 
-        <section>
-          <h3 className="font-semibold mb-2">Experience</h3>
-          {data.experiences.map((exp, index) => (
-            <div key={index} className="mb-4">
-              <h4 className="font-medium">{exp.title}</h4>
-              <div className="text-sm text-muted-foreground">
-                {exp.company} | {exp.duration}
-              </div>
-              <p className="text-sm mt-1">{exp.description}</p>
+      <section className="mb-4">
+        <h2 className="text-lg font-bold border-b border-black mb-2">Education</h2>
+        {data.education.map((edu, index) => (
+          <div key={index} className="mb-2">
+            <div className="flex justify-between">
+              <strong>
+                {edu.institution}, {edu.degree}
+              </strong>
+              <span>{edu.graduationDate}</span>
             </div>
-          ))}
-        </section>
-
-        <section>
-          <h3 className="font-semibold mb-2">Education</h3>
-          {data.education.map((edu, index) => (
-            <div key={index} className="mb-2">
-              <h4 className="font-medium">{edu.degree}</h4>
-              <div className="text-sm text-muted-foreground">
-                {edu.institution} | {edu.year}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        <section>
-          <h3 className="font-semibold mb-2">Skills</h3>
-          <div className="flex flex-wrap gap-2">
-            {data.skills.map((skill, index) => (
-              <span key={index} className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">
-                {skill}
-              </span>
-            ))}
+            {edu.gpa && <p>GPA: {edu.gpa}</p>}
+            {edu.coursework && <p>Coursework: {edu.coursework}</p>}
           </div>
-        </section>
-      </CardContent>
-    </Card>
+        ))}
+      </section>
+
+      <section className="mb-4">
+        <h2 className="text-lg font-bold border-b border-black mb-2">Experience</h2>
+        {data.experiences.map((exp, index) => (
+          <div key={index} className="mb-2">
+            <div className="flex justify-between">
+              <strong>
+                {exp.title}, {exp.company} - {exp.location}
+              </strong>
+              <span>
+                {exp.startDate} - {exp.endDate}
+              </span>
+            </div>
+            <ul className="list-disc list-inside">
+              {exp.description.split("\n").map((item, i) => (
+                <li key={i}>{item.trim()}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      <section className="mb-4">
+        <h2 className="text-lg font-bold border-b border-black mb-2">Projects</h2>
+        {data.projects.map((project, index) => (
+          <div key={index} className="mb-2">
+            <strong>{project.name}</strong>{" "}
+            <a href={project.link} className="text-blue-600">
+              Github
+            </a>
+            <ul className="list-disc list-inside">
+              {project.description.split("\n").map((item, i) => (
+                <li key={i}>{item.trim()}</li>
+              ))}
+            </ul>
+            <p>Tech Used: {project.techUsed}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mb-4">
+        <h2 className="text-lg font-bold border-b border-black mb-2">Skills</h2>
+        {data.skills.map((skillCategory, index) => (
+          <div key={index} className="mb-1">
+            <strong>{skillCategory.category}:</strong> {skillCategory.items.join(", ")}
+          </div>
+        ))}
+      </section>
+
+      <section className="mb-4">
+        <h2 className="text-lg font-bold border-b border-black mb-2">Certifications</h2>
+        <ul className="list-disc list-inside">
+          {data.certifications.map((cert, index) => (
+            <li key={index}>{cert}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-bold border-b border-black mb-2">Additional Profile Links</h2>
+        {data.additionalLinks.map((link, index) => (
+          <div key={index}>
+            {link.name}:{" "}
+            <a href={link.url} className="text-blue-600">
+              {link.url}
+            </a>
+          </div>
+        ))}
+      </section>
+    </div>
   )
 })
 

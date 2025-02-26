@@ -44,19 +44,20 @@ export function DashboardSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="border-r bg-gray-100/40 w-60 dark:bg-gray-800/40">
+    <div className="border-r bg-gray-100/40 w-60 dark:bg-gray-800/40 mt-4">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <ScrollArea className="flex-1 px-3">
-          <div className="space-y-1 py-2">
+          <div className="space-y-1 py-2 mt-4">
             {sidebarItems.map((item) => (
               <Button
-                key={item.href}
-                variant={pathname === item.href ? "secondary" : "ghost"}
-                className={cn("w-full justify-start", {
-                  "bg-gray-200 dark:bg-gray-700 mt-4": pathname === item.href,
-                })}
-                asChild
-              >
+              key={item.href}
+              variant={pathname === item.href ? "secondary" : "ghost"}
+              className={cn("w-full justify-start", {
+                "bg-gray-200 dark:bg-gray-700": pathname === item.href,
+              })}
+              asChild
+            >
+            
                 <Link href={item.href}>
                   <item.icon className="mr-2 h-4 w-4" />
                   {item.title}

@@ -4,6 +4,7 @@ import "./globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Nav } from "@/components/nav"
 import { ThemeProvider } from "@/components/theme-provider"
+import { usePathname } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "HR Solutions",
@@ -15,6 +16,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>

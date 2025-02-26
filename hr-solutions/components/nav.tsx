@@ -1,18 +1,24 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { SignInButton, SignUpButton, UserButton, useAuth, useUser } from "@clerk/nextjs"
-import { usePathname } from "next/navigation"
-import { ModeToggle } from "./ModeToggle"
-import { motion } from "framer-motion"
-import { Button } from "./ui/button"
+import Link from "next/link";
+import {
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useAuth,
+  useUser,
+} from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import { ModeToggle } from "./ModeToggle";
+import { motion } from "framer-motion";
+import { Button } from "./ui/button";
 
 export function Nav() {
-  const { isSignedIn } = useAuth()
-  const { user } = useUser()
-  const pathname = usePathname()
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
+  const pathname = usePathname();
 
-  const isLandingPage = pathname === "/"
+  const isLandingPage = pathname === "/";
 
   return (
     <motion.nav
@@ -45,9 +51,13 @@ export function Nav() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-lg">HR Solutions</span>
+                <span className="text-white font-bold text-lg">
+                  HR Solutions
+                </span>
                 {!isLandingPage && (
-                  <span className="text-xs text-gray-400">Welcome, {user?.firstName}</span>
+                  <span className="text-xs text-gray-400">
+                    Welcome, {user?.firstName}
+                  </span>
                 )}
               </div>
             </div>
@@ -71,7 +81,24 @@ export function Nav() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-lg">HR Solutions</span>
+                <Link href="/apply">
+                  <Button>
+                    Apply for Jobs
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-5 h-5"
+                    >
+                      <path d="M22 2L11 13" />
+                      <path d="M22 2L15 22 11 13 2 9z" />
+                    </svg>
+                  </Button>
+                </Link>
               </div>
             </Link>
           )}
@@ -81,31 +108,34 @@ export function Nav() {
           {isLandingPage ? (
             <>
               <SignInButton redirectUrl="/dashboard">
-                <Button variant="ghost" className="text-white hover:text-purple-400 hover:bg-white/10">
-                  Login
+                <Button
+                  variant="ghost"
+                  className="text-white font-bold hover:text-purple-400 hover:bg-white/10"
+                >
+                 HR Portal Login
                 </Button>
               </SignInButton>
               <SignUpButton redirectUrl="/dashboard">
                 <Button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:opacity-90">
-                  Get Started
+                  Register your Company
                 </Button>
               </SignUpButton>
             </>
           ) : isSignedIn ? (
             <>
               <div className="flex items-center gap-4">
-                <Link 
-                  href="/dashboard" 
+                <Link
+                  href="/dashboard"
                   className={`text-sm font-medium transition-colors hover:text-purple-400 ${
-                    pathname === '/dashboard' ? 'text-purple-400' : 'text-white'
+                    pathname === "/dashboard" ? "text-purple-400" : "text-white"
                   }`}
                 >
                   Dashboard
                 </Link>
-                <Link 
-                  href="/settings" 
+                <Link
+                  href="/settings"
                   className={`text-sm font-medium transition-colors hover:text-purple-400 ${
-                    pathname === '/settings' ? 'text-purple-400' : 'text-white'
+                    pathname === "/settings" ? "text-purple-400" : "text-white"
                   }`}
                 >
                   Settings
@@ -113,12 +143,12 @@ export function Nav() {
               </div>
               <div className="flex items-center gap-3 pl-4 border-l border-white/10">
                 <ModeToggle />
-                <UserButton 
+                <UserButton
                   afterSignOutUrl="/"
                   appearance={{
                     elements: {
-                      avatarBox: "w-9 h-9"
-                    }
+                      avatarBox: "w-9 h-9",
+                    },
                   }}
                 />
               </div>
@@ -127,7 +157,10 @@ export function Nav() {
             <>
               <div className="flex items-center gap-4">
                 <SignInButton redirectUrl="/dashboard">
-                  <Button variant="ghost" className="text-white hover:text-purple-400 hover:bg-white/10">
+                  <Button
+                    variant="ghost"
+                    className="text-white hover:text-purple-400 hover:bg-white/10"
+                  >
                     Login
                   </Button>
                 </SignInButton>
@@ -145,5 +178,5 @@ export function Nav() {
         </div>
       </div>
     </motion.nav>
-  )
+  );
 }
