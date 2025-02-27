@@ -1,11 +1,20 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { BookMarked, Calendar, Briefcase, Settings, FileText, LogOut } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils";
+import Logout from "@/components/logout";
+import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  BookMarked,
+  Calendar,
+  Briefcase,
+  Settings,
+  FileText,
+  LogOut,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const sidebarItems = [
   {
@@ -38,10 +47,10 @@ const sidebarItems = [
     href: "/dashboard/guidelines",
     icon: FileText,
   },
-]
+];
 
 export function DashboardSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="border-r bg-gray-100/40 w-60 dark:bg-gray-800/40 mt-4">
@@ -50,14 +59,13 @@ export function DashboardSidebar() {
           <div className="space-y-1 py-2 mt-4">
             {sidebarItems.map((item) => (
               <Button
-              key={item.href}
-              variant={pathname === item.href ? "secondary" : "ghost"}
-              className={cn("w-full justify-start", {
-                "bg-gray-200 dark:bg-gray-700": pathname === item.href,
-              })}
-              asChild
-            >
-            
+                key={item.href}
+                variant={pathname === item.href ? "secondary" : "ghost"}
+                className={cn("w-full justify-start", {
+                  "bg-gray-200 dark:bg-gray-700": pathname === item.href,
+                })}
+                asChild
+              >
                 <Link href={item.href}>
                   <item.icon className="mr-2 h-4 w-4" />
                   {item.title}
@@ -67,15 +75,13 @@ export function DashboardSidebar() {
           </div>
         </ScrollArea>
         <div className="mt-auto p-4">
-          <Button variant="outline" className="w-full" asChild>
-            <Link href="/logout">
-              <LogOut className="mr-2 h-4 w-4" />
-              Log out
-            </Link>
-          </Button>
+        <Logout />
         </div>
       </div>
     </div>
-  )
+  );
 }
+
+
+
 
